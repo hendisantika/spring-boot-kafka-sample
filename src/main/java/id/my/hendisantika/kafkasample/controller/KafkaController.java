@@ -4,7 +4,9 @@ import id.my.hendisantika.kafkasample.model.SuperHero;
 import id.my.hendisantika.kafkasample.service.ProducerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,4 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class KafkaController {
 
     private final ProducerService<SuperHero> producerService;
+
+    @GetMapping(value = "/publish")
+    public String sendMessageToKafkaTopic(@RequestParam("message") String message) {
+        producerService.sendMessage(message);
+        return "Successfully publisher message..!";
+    }
 }
