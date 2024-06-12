@@ -24,8 +24,15 @@ public class ProducerService<T> {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final KafkaTemplate<String, T> kafkaTemplateSuperHero;
+
     @Value("${spring.kafka.topic}")
     private String topic;
+
     @Value("${spring.kafka.superhero-topic}")
     private String superHeroTopic;
+
+    public void sendMessage(String message) {
+        log.info("#### -> Publishing message -> {}", message);
+        kafkaTemplate.send(topic, message);
+    }
 }
