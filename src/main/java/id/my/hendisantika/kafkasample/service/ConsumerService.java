@@ -1,5 +1,6 @@
 package id.my.hendisantika.kafkasample.service;
 
+import id.my.hendisantika.kafkasample.model.SuperHero;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,10 @@ public class ConsumerService {
     @KafkaListener(topics = {"${spring.kafka.topic}"}, containerFactory = "kafkaListenerStringFactory", groupId = "group_id")
     public void consumeMessage(String message) {
         log.info("**** -> Consumed message -> {}", message);
+    }
+
+    @KafkaListener(topics = {"${spring.kafka.superhero-topic}"}, containerFactory = "kafkaListenerJsonFactory", groupId = "group_id")
+    public void consumeSuperHero(SuperHero superHero) {
+        log.info("**** -> Consumed Super Hero :: {}", superHero);
     }
 }
