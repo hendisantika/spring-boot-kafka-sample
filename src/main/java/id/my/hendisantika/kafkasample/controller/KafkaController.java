@@ -5,9 +5,14 @@ import id.my.hendisantika.kafkasample.service.ProducerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,5 +35,16 @@ public class KafkaController {
     public String sendMessageToKafkaTopic(@RequestParam("message") String message) {
         producerService.sendMessage(message);
         return "Successfully publisher message..!";
+    }
+
+    @PostMapping(value = "/publish")
+    public Map<String, Object> sendObjectToKafkaTopic(@RequestBody SuperHero superHero) {
+        producerService.sendSuperHeroMessage(superHero);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("message", "Successfully publisher Super Hero..!");
+        map.put("payload", superHero);
+
+        return map;
     }
 }
