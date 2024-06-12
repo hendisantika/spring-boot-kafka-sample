@@ -35,4 +35,9 @@ public class ProducerService<T> {
         log.info("#### -> Publishing message -> {}", message);
         kafkaTemplate.send(topic, message);
     }
+
+    public void sendSuperHeroMessage(T superHero) {
+        log.info("#### -> Publishing SuperHero :: {}", superHero);
+        kafkaTemplateSuperHero.send(superHeroTopic, superHero);
+    }
 }
