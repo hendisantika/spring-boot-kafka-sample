@@ -1,6 +1,7 @@
 package id.my.hendisantika.kafkasample.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +17,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class ConsumerService {
-
+    @KafkaListener(topics = {"${spring.kafka.topic}"}, containerFactory = "kafkaListenerStringFactory", groupId = "group_id")
+    public void consumeMessage(String message) {
+        log.info("**** -> Consumed message -> {}", message);
+    }
 }
