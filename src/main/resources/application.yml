@@ -17,3 +17,11 @@ spring:
 
     topic: message-topic
     superhero-topic: superhero-topic
+
+springdoc:
+  api-docs:
+    path: /v3/api-doc
+  swagger-ui:
+    path: /swagger-ui
+application-description: '@project.description@'
+application-version: '@project.version@'
